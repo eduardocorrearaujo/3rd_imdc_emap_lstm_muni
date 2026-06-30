@@ -18,6 +18,20 @@ Long-term dengue forecasting models developed for the [3rd Infodengue-Mosqlimate
 - Campo Novo do Parecis (MT) — geocode: 5102637  
 - Novo Gama (GO) — geocode: 5215231  
 
+
+Optional Challenge 3 – Chikugunya (City Level), which focuses on predicting dengue incidence across 15 selected Brazilian cities:
+
+- Teresina (PI) - geocode: 2211001
+- Teixeira de Freitas (BA) - geocode: 2931350
+- Montes Claros (MG) - geocode: 3143302
+- Coronel Fabriciano (MG) - geocode: 3119401
+- Palmas (TO) - geocode: 1721000
+- Paraíso do Tocantins (TO) - geocode: 1716109
+- Cascavel (PR) - geocode: 4104808
+- Xanxerê (SC) - geocode: 4219507
+- Cuiabá (MT) - geocode: 5103403
+- Campo Novo do Parecis (MT) - geocode: 5102637  
+
 ## Team and Contributors:
 - Eduardo Correa Araujo (School of Applied Mathematics - (EMAp FGV))
 

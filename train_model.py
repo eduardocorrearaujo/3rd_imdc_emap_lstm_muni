@@ -22,13 +22,17 @@ df_map = pd.read_csv(f'{data_path}/map_regional_health.csv')
 if __name__ == '__main__':
 
     boxcox = False
-    disease = 'dengue'
+    disease = 'chikungunya'
     min_year = 2015
 
-    geocodes = [2931350, 2933307, 2302503, 3119401, 3549805,
-           3541406, 1200401, 1200203, 1716109, 4113700, 4103701, 4104808,
-            5201405, 5102637, 5215231]
+    #geocodes_dengue = [2931350, 2933307, 2302503, 3119401, 3549805,
+    #       3541406, 1200401, 1200203, 1716109, 4113700, 4103701, 4104808,
+    #        5201405, 5102637, 5215231]
     
+    #geocodes = [2211001, 2931350, 3143302, 3119401, 1721000,
+    #            1716109, 4104808, 4219507, 5103403, 5102637]
+
+    geocodes = [4219507, 5103403, 5102637]
 
     columns_to_normalize = ['casos','epiweek', 'enso']
 
@@ -46,9 +50,15 @@ if __name__ == '__main__':
 
         print(f'{GEOCODE} - {TEST_YEAR}')
 
-        macro_reg = df_map.loc[df_map.geocode == GEOCODE].macroregional_geocode.values[0]
+        if GEOCODE == 4219507: 
+            macro_reg = df_map.loc[df_map.geocode == GEOCODE].uf.values[0]
 
-        df_f = df.loc[df.macroregional_geocode == macro_reg].copy()
+            df_f = df.loc[df.uf== macro_reg].copy()
+
+        else: 
+            macro_reg = df_map.loc[df_map.geocode == GEOCODE].macroregional_geocode.values[0]
+
+            df_f = df.loc[df.macroregional_geocode == macro_reg].copy()
 
         # generate the samples to train and test based on the regional data 
         X_train, y_train, norm  = prep.generate_regional_train_samples(df_f,
