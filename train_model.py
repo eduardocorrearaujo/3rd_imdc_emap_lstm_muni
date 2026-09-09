@@ -22,17 +22,18 @@ df_map = pd.read_csv(f'{data_path}/map_regional_health.csv')
 if __name__ == '__main__':
 
     boxcox = False
-    disease = 'chikungunya'
+    disease = 'dengue'
     min_year = 2015
+    filename = f'../3rd_imdc_emap_lstm/data/{disease}_up.csv.gz'
 
-    #geocodes_dengue = [2931350, 2933307, 2302503, 3119401, 3549805,
-    #       3541406, 1200401, 1200203, 1716109, 4113700, 4103701, 4104808,
-    #        5201405, 5102637, 5215231]
-    
+    # dengue
+    geocodes = [2931350, 2933307, 2302503, 3119401, 3549805,
+           3541406, 1200401, 1200203, 1716109, 4113700, 4103701, 4104808,
+            5201405, 5102637, 5215231]
+
+    #chikungunya
     #geocodes = [2211001, 2931350, 3143302, 3119401, 1721000,
     #            1716109, 4104808, 4219507, 5103403, 5102637]
-
-    geocodes = [4219507, 5103403, 5102637]
 
     columns_to_normalize = ['casos','epiweek', 'enso']
 
@@ -42,11 +43,11 @@ if __name__ == '__main__':
     
     df = df.loc[df.index >= pd.to_datetime(Week(2015,41).startdate())]
 
-    enso = prep.load_enso_data()
+    enso = prep.load_enso_data(filename='ocean_climate_oscillations_up')
 
     df_map = pd.read_csv(f'{data_path}/map_regional_health.csv')
     
-    for GEOCODE, TEST_YEAR in product(geocodes, [2023,2024,2025,2026]): 
+    for GEOCODE, TEST_YEAR in product(geocodes, [2027]): 
 
         print(f'{GEOCODE} - {TEST_YEAR}')
 
@@ -78,10 +79,10 @@ if __name__ == '__main__':
         min_delta = 0
         patience= 25
 
-        if TEST_YEAR > 2023:     
-            model_path = f'./saved_models/trained_{disease}_{GEOCODE}_{TEST_YEAR-2}_base.pt'
-            model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
-            model.to(device)  
+        #if TEST_YEAR > 2023:     
+        #    model_path = f'./saved_models/trained_{disease}_{GEOCODE}_{TEST_YEAR-2}_base.pt'
+        #    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
+        #    model.to(device)  
     
         model = train(model, X_train, y_train, label=label, batch_size=batch_size, epochs=epochs,
                                                     overwrite=True, cross_val = cross_val, monitor='val_loss',

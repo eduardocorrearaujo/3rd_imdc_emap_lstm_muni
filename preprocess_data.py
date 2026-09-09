@@ -248,11 +248,11 @@ def load_cases_data(disease ='dengue', filename = None):
     return df 
 
 #download enso data
-def load_enso_data(indicators = ['enso']):
+def load_enso_data(indicators = ['enso'], filename = 'ocean_climate_oscillations_up'):
     '''
     Function that loads the enso data 
     '''
-    enso = pd.read_csv(f'{data_path}/ocean_climate_oscillations.csv.gz')
+    enso = pd.read_csv(f'{data_path}/{filename}.csv.gz')
 
     enso = enso[['date'] + list(indicators)]
 

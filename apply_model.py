@@ -11,30 +11,31 @@ import torch
 THR = 0.1
 
 # dengue
-#geocodes = [2931350, 2933307, 2302503, 3119401, 3549805,
-#           3541406, 1200401, 1200203, 1716109, 4113700, 4103701, 4104808,
-#            5201405, 5102637, 5215231]
+geocodes = [2931350, 2933307, 2302503, 3119401, 3549805,
+           3541406, 1200401, 1200203, 1716109, 4113700, 4103701, 4104808,
+            5201405, 5102637, 5215231]
 
 # chikungunya 
-geocodes = [2211001, 2931350, 3143302, 3119401, 1721000,
-                1716109, 4104808, 4219507, 5103403, 5102637]
+#geocodes = [2211001, 2931350, 3143302, 3119401, 1721000,
+#                1716109, 4104808, 4219507, 5103403, 5102637]
 
 if __name__ == '__main__': 
     model_name = 'base'
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     boxcox = False 
-    disease = 'chikungunya'
+    disease = 'dengue'
+    filename = f'../3rd_imdc_emap_lstm/data/{disease}_up.csv.gz'
 
     columns_to_normalize = ['casos','epiweek', 'enso']
 
-    df = prep.load_cases_data(disease=disease)
+    df = prep.load_cases_data(filename=filename)
     
     df = df.loc[df.index >= pd.to_datetime(Week(2015,41).startdate())]
 
-    enso = prep.load_enso_data()
+    enso = prep.load_enso_data(filename='ocean_climate_oscillations_up')
 
 
-    for GEOCODE, TEST_YEAR in product(geocodes, [2023,2024,2025,2026]): \
+    for GEOCODE, TEST_YEAR in product(geocodes, [2027]): 
     
         print(f'{GEOCODE} - {TEST_YEAR}')
 
